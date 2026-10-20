@@ -2,27 +2,30 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>後藤結の iPhone</title>
+
 <style>
 * {
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
 }
+
 body {
   margin: 0;
-  background: #111;
-  color: white;
-  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+  background: #171717;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  min-height: 100dvh;
+  color: white;
 }
+
 .phone {
   position: relative;
   width: min(100vw, 390px);
-  height: min(844px, 100dvh);
+  height: min(100dvh, 844px);
   min-height: 600px;
   overflow: hidden;
   background: #111;
@@ -30,52 +33,72 @@ body {
   border-radius: 42px;
   box-shadow: 0 0 30px #000;
 }
+
+.island {
+  position: absolute;
+  z-index: 50;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 27px;
+  border-radius: 20px;
+  background: #000;
+  pointer-events: none;
+}
+
 .status {
   position: absolute;
-  z-index: 20;
+  z-index: 51;
   top: 0;
   left: 0;
   right: 0;
-  height: 48px;
-  padding: 15px 27px 0;
+  height: 45px;
+  padding: 14px 25px 0;
   display: flex;
   justify-content: space-between;
   font-size: 13px;
   font-weight: 700;
   pointer-events: none;
 }
-.island {
-  position: absolute;
-  z-index: 21;
-  top: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 105px;
-  height: 27px;
-  background: #000;
-  border-radius: 20px;
-}
+
 .screen {
   position: absolute;
   inset: 0;
   display: none;
-  overflow: auto;
+  overflow-y: auto;
   padding-bottom: 35px;
 }
+
 .screen.active {
   display: block;
 }
+
+.home-indicator {
+  position: absolute;
+  z-index: 60;
+  bottom: 7px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 110px;
+  height: 4px;
+  border-radius: 10px;
+  background: white;
+  pointer-events: none;
+}
+
 #lock {
-  background: linear-gradient(160deg, #f8dce5, #b7c6e8 55%, #8d9ac5);
+  background: linear-gradient(160deg, #f7dce8, #b8c9ec 55%, #8999c5);
   text-align: center;
   touch-action: pan-y;
 }
+
 .lock-date {
   margin-top: 105px;
   font-size: 19px;
-  color: white;
   text-shadow: 0 1px 8px #777;
 }
+
 .lock-time {
   margin-top: 3px;
   font-size: 78px;
@@ -84,35 +107,38 @@ body {
   letter-spacing: -4px;
   text-shadow: 0 2px 10px #777;
 }
+
 .lock-widget {
   margin: 30px auto 0;
   width: 84%;
   padding: 20px;
   border-radius: 25px;
-  background: #ffffff48;
+  background: #ffffff45;
   backdrop-filter: blur(15px);
-  color: white;
   text-align: left;
 }
+
 .lock-widget strong {
   font-size: 14px;
 }
+
 .lock-widget p {
   font-size: 12px;
   line-height: 1.8;
 }
+
 .lock-bottom {
   position: absolute;
-  bottom: 32px;
+  bottom: 35px;
   left: 0;
   right: 0;
   font-size: 12px;
   text-shadow: 0 1px 6px #555;
 }
-.flash {
+
+.lock-shortcut {
   position: absolute;
   bottom: 55px;
-  left: 25px;
   width: 42px;
   height: 42px;
   border-radius: 50%;
@@ -121,24 +147,14 @@ body {
   place-items: center;
   font-size: 20px;
 }
-.camera-shortcut {
-  position: absolute;
-  bottom: 55px;
-  right: 25px;
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  background: #ffffff45;
-  display: grid;
-  place-items: center;
-  font-size: 20px;
-}
+
 #passcode {
   background: #e8e8ed;
   color: #222;
   text-align: center;
-  padding-top: 100px;
+  padding-top: 90px;
 }
+
 .avatar {
   width: 75px;
   height: 75px;
@@ -149,112 +165,130 @@ body {
   font-size: 35px;
   background: linear-gradient(135deg, #f7c6d8, #a9b9e5);
 }
+
 .pass-title {
   font-size: 21px;
   font-weight: 600;
 }
+
 .pass-subtitle {
   font-size: 13px;
   color: #777;
   margin-top: 8px;
 }
+
 .dots {
   display: flex;
   justify-content: center;
   gap: 16px;
-  margin: 28px 0;
+  margin: 25px 0;
 }
+
 .dot {
   width: 12px;
   height: 12px;
   border: 1px solid #555;
   border-radius: 50%;
 }
+
 .dot.filled {
   background: #333;
 }
+
 .keypad {
   width: 250px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
+  gap: 10px;
 }
+
 .key {
-  height: 62px;
+  height: 60px;
   border: 0;
   border-radius: 50%;
-  background: #ffffff;
+  background: white;
   color: #222;
   font-size: 25px;
   cursor: pointer;
 }
+
 .key small {
   display: block;
   font-size: 8px;
   letter-spacing: 2px;
 }
+
 .key:active {
   background: #c9c9d0;
 }
+
 .key.blank {
   visibility: hidden;
 }
+
 .pass-bottom {
-  margin-top: 20px;
+  margin-top: 18px;
   color: #777;
   font-size: 12px;
 }
+
 #home {
   background: linear-gradient(160deg, #c8d8f3, #f3dce9 55%, #e7d9f3);
-  padding-top: 65px;
+  padding-top: 60px;
 }
+
 .greeting {
   font-size: 23px;
   font-weight: 700;
-  margin: 15px 22px 5px;
-  color: #fff;
+  margin: 15px 20px 5px;
   text-shadow: 0 1px 5px #888;
 }
+
 .home-date {
   font-size: 12px;
-  margin: 0 23px 20px;
-  color: #fff;
+  margin: 0 22px 20px;
 }
+
 .widget-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 12px;
-  margin: 0 18px 25px;
+  margin: 0 16px 25px;
 }
+
 .widget {
-  min-height: 125px;
+  min-height: 120px;
   border-radius: 22px;
   padding: 14px;
   background: #ffffffb8;
   color: #333;
   backdrop-filter: blur(15px);
 }
+
 .widget .label {
   color: #777;
   font-size: 11px;
   margin-bottom: 10px;
 }
+
 .widget .big {
   font-size: 25px;
   font-weight: 600;
 }
+
 .widget p {
   font-size: 11px;
   line-height: 1.6;
-  margin-bottom: 0;
 }
+
 .apps {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 23px 8px;
-  padding: 5px 16px 25px;
+  gap: 22px 6px;
+  padding: 5px 12px 110px;
 }
+
 .app {
   text-align: center;
   font-size: 10px;
@@ -262,18 +296,20 @@ body {
   cursor: pointer;
   text-shadow: 0 1px 3px #555;
 }
+
 .icon {
-  width: 54px;
-  height: 54px;
+  width: 53px;
+  height: 53px;
   margin: 0 auto 6px;
   border-radius: 14px;
   display: grid;
   place-items: center;
-  font-size: 28px;
-  background: #ffffffd9;
+  font-size: 27px;
+  background: white;
   text-shadow: none;
   box-shadow: 0 3px 8px #5552;
 }
+
 .messages { background: #54c96a; }
 .photos { background: linear-gradient(135deg,#f5a7c7,#f8d66d,#80d7cf,#9eafff); }
 .notes { background: #fff4b4; }
@@ -282,35 +318,40 @@ body {
 .music { background: #fa647d; }
 .settings { background: #aab0b8; }
 .safari { background: #9ddafa; }
+
 .dock {
   position: absolute;
   left: 15px;
   right: 15px;
   bottom: 18px;
-  height: 82px;
-  border-radius: 27px;
-  background: #ffffff6b;
+  height: 78px;
+  border-radius: 26px;
+  background: #ffffff70;
   backdrop-filter: blur(20px);
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   align-items: center;
 }
+
 .dock .icon {
-  width: 49px;
-  height: 49px;
+  width: 48px;
+  height: 48px;
   margin-bottom: 0;
 }
+
 #appview {
   background: #f5f5f7;
   color: #222;
   padding-top: 55px;
 }
+
 .app-header {
   display: flex;
   align-items: center;
   padding: 8px 18px 18px;
   gap: 12px;
 }
+
 .back {
   color: #1685ed;
   font-size: 16px;
@@ -318,30 +359,36 @@ body {
   background: transparent;
   cursor: pointer;
 }
+
 .app-title {
-  font-size: 24px;
+  font-size: 23px;
   font-weight: 700;
 }
+
 .app-content {
-  padding: 0 18px 35px;
+  padding: 0 16px 40px;
 }
+
 .card {
   background: white;
   border-radius: 15px;
   padding: 15px;
   margin-bottom: 12px;
 }
+
 .muted {
   color: #888;
   font-size: 12px;
 }
+
 .chat {
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
+
 .bubble {
-  max-width: 82%;
+  max-width: 85%;
   padding: 11px 14px;
   border-radius: 18px;
   background: #e5e5ea;
@@ -349,16 +396,19 @@ body {
   line-height: 1.5;
   align-self: flex-start;
 }
+
 .bubble.mine {
   background: #42c65a;
   color: white;
   align-self: flex-end;
 }
+
 .photo-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 4px;
 }
+
 .photo {
   aspect-ratio: 1;
   border-radius: 5px;
@@ -367,94 +417,96 @@ body {
   font-size: 35px;
   background: linear-gradient(135deg,#f8d8e5,#c6d8f5);
 }
-.note-paper {
-  min-height: 250px;
-  line-height: 2;
-  white-space: pre-wrap;
-  outline: none;
-}
+
 textarea {
   width: 100%;
-  min-height: 220px;
+  min-height: 230px;
   border: 0;
   resize: vertical;
   font: inherit;
   background: transparent;
   outline: none;
+  line-height: 1.8;
 }
+
 .list-row {
   background: white;
   padding: 16px;
   border-bottom: 1px solid #eee;
   font-size: 14px;
 }
+
 .list-row:first-child {
   border-radius: 14px 14px 0 0;
 }
+
 .list-row:last-child {
   border-radius: 0 0 14px 14px;
   border-bottom: 0;
 }
-.home-indicator {
-  position: absolute;
-  z-index: 30;
-  bottom: 7px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 110px;
-  height: 4px;
-  border-radius: 10px;
-  background: white;
-  opacity: .8;
-}
-#appview .home-indicator {
-  background: #222;
-}
+
 .notice {
   font-size: 12px;
   color: #777;
   text-align: center;
   margin: 15px 0;
 }
+
+#appview .home-indicator {
+  background: #222;
+}
+
 @media (max-height: 700px) {
   .lock-date { margin-top: 75px; }
   .lock-time { font-size: 65px; }
   .lock-widget { margin-top: 18px; padding: 12px; }
-  #passcode { padding-top: 65px; }
-  .keypad { gap: 7px; }
-  .key { height: 53px; }
+  #passcode { padding-top: 55px; }
+  .keypad { gap: 6px; }
+  .key { height: 50px; }
 }
 </style>
 </head>
+
 <body>
 <div class="phone">
+
   <div class="island"></div>
+
   <div class="status">
     <span id="statusTime">9:41</span>
-    <span>●●●  ▰</span>
+    <span>●●● ▰</span>
   </div>
+
+  <!-- ロック画面 -->
   <section class="screen active" id="lock">
-    <div class="lock-date" id="lockDate">10月20日 火曜日</div>
+    <div class="lock-date" id="lockDate"></div>
     <div class="lock-time" id="lockTime">9:41</div>
+
     <div class="lock-widget">
       <strong>☁ 今日のひとこと</strong>
       <p>今日もいい一日になりますように。<br>ゆっくりしていってね。</p>
     </div>
-    <div class="flash">◉</div>
-    <div class="camera-shortcut">📷</div>
+
+    <div class="lock-shortcut" style="left:25px;">◉</div>
+    <div class="lock-shortcut" style="right:25px;">📷</div>
+
     <div class="lock-bottom">上にスワイプして開く ↑</div>
     <div class="home-indicator"></div>
   </section>
+
+  <!-- パスコード画面 -->
   <section class="screen" id="passcode">
     <div class="avatar">🐱</div>
     <div class="pass-title">パスコードを入力</div>
     <div class="pass-subtitle">後藤結の iPhone</div>
+
     <div class="dots" id="dots">
       <span class="dot"></span>
       <span class="dot"></span>
       <span class="dot"></span>
       <span class="dot"></span>
     </div>
+
     <div class="keypad">
       <button class="key" onclick="pressKey('1')">1<small>&nbsp;</small></button>
       <button class="key" onclick="pressKey('2')">2<small>ABC</small></button>
@@ -467,98 +519,140 @@ textarea {
       <button class="key" onclick="pressKey('9')">9<small>WXYZ</small></button>
       <button class="key blank"></button>
       <button class="key" onclick="pressKey('0')">0<small>&nbsp;</small></button>
-      <button class="key" onclick="deleteKey()" style="font-size:13px">⌫</button>
+      <button class="key" onclick="deleteKey()" style="font-size:14px">⌫</button>
     </div>
+
     <div class="pass-bottom" id="passMessage">パスコードは4桁です</div>
     <div class="home-indicator" style="background:#555"></div>
   </section>
+
+  <!-- ホーム画面 -->
   <section class="screen" id="home">
     <div class="greeting">後藤結の iPhone</div>
-    <div class="home-date" id="homeDate">今日もおつかれさま</div>
-<div class="widget-grid">
-  <div class="widget">
-    <div class="label">📅 今日</div>
-    <div class="big" id="calendarDay">20</div>
-    <p id="calendarText">予定をチェック</p>
-  </div>
-  <div class="widget">
-    <div class="label">🎵 NOW PLAYING</div>
-    <div class="big">♫</div>
-    <p>お気に入りの曲</p>
-  </div>
-</div>
+    <div class="home-date" id="homeDate"></div>
 
-<div class="apps">
-  <div class="app" onclick="openApp('messages')">
-    <div class="icon messages">💬</div>メッセージ
-  </div>
-  <div class="app" onclick="openApp('photos')">
-    <div class="icon photos">🌈</div>写真
-  </div>
-  <div class="app" onclick="openApp('notes')">
-    <div class="icon notes">📝</div>メモ
-  </div>
-  <div class="app" onclick="openApp('camera')">
-    <div class="icon camera">📷</div>カメラ
-  </div>
-  <div class="app" onclick="openApp('calendar')">
-    <div class="icon calendar">🗓️</div>カレンダー
-  </div>
-  <div class="app" onclick="openApp('music')">
-    <div class="icon music">🎵</div>ミュージック
-  </div>
-  <div class="app" onclick="openApp('settings')">
-    <div class="icon settings">⚙️</div>設定
-  </div>
-  <div class="app" onclick="openApp('safari')">
-    <div class="icon safari">🧭</div>Safari
-  </div>
-</div>
+    <div class="widget-grid">
+      <div class="widget">
+        <div class="label">📅 今日</div>
+        <div class="big" id="calendarDay">20</div>
+        <p>今日の予定</p>
+      </div>
 
-<div class="dock">
-  <div class="app" onclick="openApp('messages')"><div class="icon messages">💬</div></div>
-  <div class="app" onclick="openApp('safari')"><div class="icon safari">🧭</div></div>
-  <div class="app" onclick="openApp('music')"><div class="icon music">🎵</div></div>
-  <div class="app" onclick="openApp('photos')"><div class="icon photos">🌈</div></div>
-</div>
-<div class="home-indicator"></div>
+      <div class="widget">
+        <div class="label">🎵 NOW PLAYING</div>
+        <div class="big">♫</div>
+        <p>お気に入りの曲</p>
+      </div>
+    </div>
+
+    <div class="apps">
+      <div class="app" onclick="openApp('messages')">
+        <div class="icon messages">💬</div>メッセージ
+      </div>
+
+      <div class="app" onclick="openApp('photos')">
+        <div class="icon photos">🌈</div>写真
+      </div>
+
+      <div class="app" onclick="openApp('notes')">
+        <div class="icon notes">📝</div>メモ
+      </div>
+
+      <div class="app" onclick="openApp('camera')">
+        <div class="icon camera">📷</div>カメラ
+      </div>
+
+      <div class="app" onclick="openApp('calendar')">
+        <div class="icon calendar">🗓️</div>カレンダー
+      </div>
+
+      <div class="app" onclick="openApp('music')">
+        <div class="icon music">🎵</div>ミュージック
+      </div>
+
+      <div class="app" onclick="openApp('settings')">
+        <div class="icon settings">⚙️</div>設定
+      </div>
+
+      <div class="app" onclick="openApp('safari')">
+        <div class="icon safari">🧭</div>Safari
+      </div>
+    </div>
+
+    <div class="dock">
+      <div class="app" onclick="openApp('messages')">
+        <div class="icon messages">💬</div>
+      </div>
+      <div class="app" onclick="openApp('safari')">
+        <div class="icon safari">🧭</div>
+      </div>
+      <div class="app" onclick="openApp('music')">
+        <div class="icon music">🎵</div>
+      </div>
+      <div class="app" onclick="openApp('photos')">
+        <div class="icon photos">🌈</div>
+      </div>
+    </div>
+
+    <div class="home-indicator"></div>
+  </section>
+
+  <!-- アプリ画面 -->
   <section class="screen" id="appview">
     <div class="app-header">
       <button class="back" onclick="goHome()">‹ ホーム</button>
       <div class="app-title" id="appTitle">アプリ</div>
     </div>
+
     <div class="app-content" id="appContent"></div>
     <div class="home-indicator"></div>
   </section>
+
 </div>
+
 <script>
 const PASSCODE = "1224";
 let enteredCode = "";
 let startY = 0;
 
-const screens = ["lock", "passcode", "home", "appview"];
+const screenNames = ["lock", "passcode", "home", "appview"];
 
 function showScreen(id) {
-  screens.forEach(screen => {
-    document.getElementById(screen).classList.toggle("active", screen === id);
+  screenNames.forEach(name => {
+    document.getElementById(name).classList.toggle("active", name === id);
   });
 }
 
 function updateClock() {
   const now = new Date();
+
   const time = now.toLocaleTimeString("ja-JP", {
     hour: "2-digit",
     minute: "2-digit",
     hour12: false
   });
+
   document.getElementById("lockTime").textContent = time;
   document.getElementById("statusTime").textContent = time;
+
   document.getElementById("lockDate").textContent =
-    now.toLocaleDateString("ja-JP", { month: "long", day: "numeric", weekday: "long" });
+    now.toLocaleDateString("ja-JP", {
+      month: "long",
+      day: "numeric",
+      weekday: "long"
+    });
+
   document.getElementById("homeDate").textContent =
-    now.toLocaleDateString("ja-JP", { year: "numeric", month: "long", day: "numeric", weekday: "long" });
+    now.toLocaleDateString("ja-JP", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      weekday: "long"
+    });
+
   document.getElementById("calendarDay").textContent = now.getDate();
 }
+
 updateClock();
 setInterval(updateClock, 30000);
 
@@ -571,6 +665,7 @@ function openPasscode() {
 
 function pressKey(number) {
   if (enteredCode.length >= 4) return;
+
   enteredCode += number;
   updateDots();
 
@@ -579,11 +674,14 @@ function pressKey(number) {
       if (enteredCode === PASSCODE) {
         showScreen("home");
       } else {
-        document.getElementById("passMessage").textContent = "パスコードが違います";
+        document.getElementById("passMessage").textContent =
+          "パスコードが違います";
+
         setTimeout(() => {
           enteredCode = "";
           updateDots();
-          document.getElementById("passMessage").textContent = "もう一度入力してください";
+          document.getElementById("passMessage").textContent =
+            "もう一度入力してください";
         }, 650);
       }
     }, 180);
@@ -602,16 +700,21 @@ function updateDots() {
 }
 
 const lock = document.getElementById("lock");
-lock.addEventListener("click", event => {
-  if (event.target.closest(".flash") || event.target.closest(".camera-shortcut")) return;
+
+lock.addEventListener("click", () => {
   openPasscode();
 });
+
 lock.addEventListener("touchstart", event => {
   startY = event.touches[0].clientY;
 }, { passive: true });
+
 lock.addEventListener("touchend", event => {
   const endY = event.changedTouches[0].clientY;
-  if (startY - endY > 30) openPasscode();
+
+  if (startY - endY > 30) {
+    openPasscode();
+  }
 }, { passive: true });
 
 const appInfo = {
@@ -619,7 +722,9 @@ const appInfo = {
     title: "メッセージ",
     html: `
       <div class="card">
-        <div style="font-size:12px;color:#888;text-align:center;margin-bottom:18px">iMessage</div>
+        <div class="muted" style="text-align:center;margin-bottom:20px">
+          iMessage
+        </div>
         <div class="chat">
           <div class="muted" style="text-align:center">今日</div>
           <div class="bubble">ゆうき、今日なにしてる？</div>
@@ -629,8 +734,10 @@ const appInfo = {
           <div class="bubble">またあとで連絡するね！</div>
         </div>
       </div>
-      <div class="notice">サンプルのメッセージです</div>`
+      <div class="notice">サンプルのメッセージです</div>
+    `
   },
+
   photos: {
     title: "写真",
     html: `
@@ -638,69 +745,135 @@ const appInfo = {
         <strong>最近の項目</strong>
         <p class="muted">写真 9枚</p>
         <div class="photo-grid">
-          <div class="photo">🌷</div><div class="photo">☁️</div><div class="photo">🐈</div>
-          <div class="photo">🌅</div><div class="photo">🎧</div><div class="photo">🍰</div>
-          <div class="photo">🌸</div><div class="photo">🧸</div><div class="photo">🌙</div>
+          <div class="photo">🌷</div>
+          <div class="photo">☁️</div>
+          <div class="photo">🐈</div>
+          <div class="photo">🌅</div>
+          <div class="photo">🎧</div>
+          <div class="photo">🍰</div>
+          <div class="photo">🌸</div>
+          <div class="photo">🧸</div>
+          <div class="photo">🌙</div>
         </div>
       </div>
-      <div class="notice">写真をタップしても開かないデモ画面です</div>`
+      <div class="notice">写真のサンプル画面です</div>
+    `
   },
+
   notes: {
     title: "メモ",
     html: `
       <div class="card">
-        <div class="muted">メモ・編集できます</div>
-        <textarea id="noteText" placeholder="ここにメモを書く...">今日も一日おつかれさま！
+        <div class="muted">メモ</div>
+        <textarea placeholder="ここにメモを書く...">今日も一日おつかれさま！
 
 忘れないようにメモしておくこと。
 
 ・明日の予定
 ・買いたいもの
 ・あとで確認すること</textarea>
-  </div>
-  <div class="notice">入力した内容はこの画面を開いている間編集できます</div>`
+      </div>
+    `
+  },
 
-},
-camera: {
-title: “カメラ”,
-html:  <div style="height:360px;border-radius:22px;background:linear-gradient(145deg,#252535,#55556a,#b5b6c8);display:flex;align-items:center;justify-content:center;flex-direction:column;color:white"> <div style="font-size:65px">📷</div> <p>カメラ</p> <div class="muted" style="color:#ddd">デモ画面</div> </div> <div class="notice">実際のカメラ撮影機能はありません</div>
-},
-calendar: {
-title: “カレンダー”,
-html:  <div class="card"> <div class="muted">今日の予定</div> <h2 id="appCalendarDay"></h2> <div class="list-row">☀️　今日も一日がんばる</div> <div class="list-row">🎧　好きな音楽を聴く</div> <div class="list-row">🌙　ゆっくり休む</div> </div>
-},
-music: {
-title: “ミュージック”,
-html:  <div class="card" style="text-align:center;padding:25px 15px"> <div style="width:190px;height:190px;border-radius:20px;margin:0 auto 20px;background:linear-gradient(135deg,#f6b5ce,#c0c9f3);display:grid;place-items:center;font-size:70px">🎵</div> <h2>お気に入りの曲</h2> <p class="muted">後藤結のプレイリスト</p> <div style="font-size:30px;margin:20px">⏮　▶️　⏭</div> </div> <div class="notice">音楽再生はデモです</div>
-},
-settings: {
-title: “設定”,
-html:  <div class="card" style="padding:0;overflow:hidden"> <div class="list-row">✈️　機内モード <span style="float:right;color:#aaa">オフ</span></div> <div class="list-row">📶　Wi-Fi <span style="float:right;color:#1685ed">接続済み</span></div> <div class="list-row">🔵　Bluetooth <span style="float:right;color:#1685ed">オン</span></div> <div class="list-row">🔔　通知</div> <div class="list-row">🌙　集中モード</div> <div class="list-row">🔋　バッテリー</div> <div class="list-row">🔒　パスコード</div> </div>
-},
-safari: {
-title: “Safari”,
-html:  <div style="background:#e5e5ea;padding:10px;border-radius:13px;margin-bottom:15px;color:#666;text-align:center">🔍　検索またはWebサイト名を入力</div> <div class="card"> <h3 style="text-align:center">お気に入り</h3> <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:15px;text-align:center"> <div>🔎<p class="muted">検索</p></div> <div>📺<p class="muted">動画</p></div> <div>💌<p class="muted">メール</p></div> </div> </div> <div class="notice">ブラウザ機能はデモです</div>
-}
+  camera: {
+    title: "カメラ",
+    html: `
+      <div style="height:350px;border-radius:22px;background:linear-gradient(145deg,#252535,#55556a,#b5b6c8);display:flex;align-items:center;justify-content:center;flex-direction:column;color:white">
+        <div style="font-size:65px">📷</div>
+        <p>カメラ</p>
+        <div class="muted" style="color:#ddd">デモ画面</div>
+      </div>
+      <div class="notice">実際の撮影機能はありません</div>
+    `
+  },
+
+  calendar: {
+    title: "カレンダー",
+    html: `
+      <div class="card">
+        <div class="muted">今日の予定</div>
+        <h2 id="appCalendarDay"></h2>
+        <div class="list-row">☀️　今日も一日がんばる</div>
+        <div class="list-row">🎧　好きな音楽を聴く</div>
+        <div class="list-row">🌙　ゆっくり休む</div>
+      </div>
+    `
+  },
+
+  music: {
+    title: "ミュージック",
+    html: `
+      <div class="card" style="text-align:center;padding:25px 15px">
+        <div style="width:190px;height:190px;border-radius:20px;margin:0 auto 20px;background:linear-gradient(135deg,#f6b5ce,#c0c9f3);display:grid;place-items:center;font-size:70px">
+          🎵
+        </div>
+        <h2>お気に入りの曲</h2>
+        <p class="muted">後藤結のプレイリスト</p>
+        <div style="font-size:30px;margin:20px">⏮　▶️　⏭</div>
+      </div>
+      <div class="notice">音楽再生はデモです</div>
+    `
+  },
+
+  settings: {
+    title: "設定",
+    html: `
+      <div class="card" style="padding:0;overflow:hidden">
+        <div class="list-row">✈️　機内モード <span style="float:right;color:#aaa">オフ</span></div>
+        <div class="list-row">📶　Wi-Fi <span style="float:right;color:#1685ed">接続済み</span></div>
+        <div class="list-row">🔵　Bluetooth <span style="float:right;color:#1685ed">オン</span></div>
+        <div class="list-row">🔔　通知</div>
+        <div class="list-row">🌙　集中モード</div>
+        <div class="list-row">🔋　バッテリー</div>
+        <div class="list-row">🔒　パスコード</div>
+      </div>
+    `
+  },
+
+  safari: {
+    title: "Safari",
+    html: `
+      <div style="background:#e5e5ea;padding:12px;border-radius:13px;margin-bottom:15px;color:#666;text-align:center">
+        🔍　検索またはWebサイト名を入力
+      </div>
+      <div class="card">
+        <h3 style="text-align:center">お気に入り</h3>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:15px;text-align:center">
+          <div>🔎<p class="muted">検索</p></div>
+          <div>📺<p class="muted">動画</p></div>
+          <div>💌<p class="muted">メール</p></div>
+        </div>
+      </div>
+      <div class="notice">ブラウザ機能はデモです</div>
+    `
+  }
 };
 
 function openApp(name) {
-const app = appInfo[name];
-if (!app) return;
-document.getElementById(“appTitle”).textContent = app.title;
-document.getElementById(“appContent”).innerHTML = app.html;
-if (name === “calendar”) {
-const now = new Date();
-document.getElementById(“appCalendarDay”).textContent =
-now.toLocaleDateString(“ja-JP”, { year: “numeric”, month: “long”, day: “numeric” });
-}
-showScreen(“appview”);
+  const app = appInfo[name];
+
+  if (!app) return;
+
+  document.getElementById("appTitle").textContent = app.title;
+  document.getElementById("appContent").innerHTML = app.html;
+
+  if (name === "calendar") {
+    document.getElementById("appCalendarDay").textContent =
+      new Date().toLocaleDateString("ja-JP", {
+        year: "numeric",
+        month: "long",
+        day: "numeric"
+      });
+  }
+
+  showScreen("appview");
 }
 
 function goHome() {
-showScreen(“home”);
-  </body>
-</html>
-:::
+  showScreen("home");
+}
+</script>
 
-      
-    
+</body>
+</html>
