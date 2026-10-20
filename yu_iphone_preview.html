@@ -1,240 +1,509 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>YUGYEOM? — My Idol iPhone</title>
+<title>YUKIPHONE</title>
+
 <style>
-:root {
-  --site-primary: #c9d8ff;
-  --site-on-primary: #17213d;
-  --site-secondary: #f0d7e8;
-  --site-on-secondary: #3b2637;
-  --site-background: #e9edf6;
-  --site-on-background: #202331;
-  --site-font-body: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
-  --site-font-heading: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
-  --site-heading-scale: 1;
-  --site-spacing-scale: 1;
-  --site-radius-scale: 1;
-  --site-decoration-opacity: 1;
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
-* { box-sizing: border-box; }
-body { margin: 0; font-family: var(--site-font-body); color: var(--site-on-background); background: var(--site-background); }
-#app { min-height: 100dvh; width: 100%; background: var(--site-background); display:flex; align-items:center; justify-content:center; padding: 18px; }
-.phone { width:min(390px, 100%); height:min(844px, calc(100dvh - 36px)); min-height:610px; position:relative; overflow:hidden; border:8px solid #17181c; border-radius:48px; background:#101116; box-shadow:0 28px 80px #26304a44; isolation:isolate; }
-.wallpaper { position:absolute; inset:0; background: radial-gradient(ellipse at 15% 20%,#d5dfff 0,transparent 36%),radial-gradient(ellipse at 85% 55%,#e8c9df 0,transparent 38%),linear-gradient(155deg,#aebee8,#f4dce9 55%,#b9c8e9); transition:filter .25s; }
-.wallpaper:after { content:""; position:absolute; inset:0; background:linear-gradient(180deg,#151b2a30,transparent 45%,#10111a55); pointer-events:none; }
-.status { position:absolute; top:11px; left:23px; right:23px; display:flex; justify-content:space-between; color:white; z-index:5; font-size:12px; font-weight:700; text-shadow:0 1px 4px #2226; }
-.dynamic-island { position:absolute; top:8px; left:50%; transform:translateX(-50%); width:104px; height:28px; background:#090a0c; border-radius:20px; z-index:6; }
-.screen { position:absolute; inset:0; z-index:2; padding:52px 20px 28px; color:white; display:none; }
-.screen.active { display:block; animation:appear .22s ease-out; }
-@keyframes appear { from{opacity:.55;transform:scale(.985)} to{opacity:1;transform:scale(1)} }
-.lock { text-align:center; padding-top:44px; }
-.lock-date { font-size:15px; font-weight:600; letter-spacing:.2px; text-shadow:0 1px 8px #24243a66; }
-.lock-time { font-size:76px; line-height:1.08; font-weight:250; letter-spacing:-4px; margin:5px 0 10px; text-shadow:0 2px 12px #24243a44; }
-.lock-sub { font-size:12px; letter-spacing:2px; opacity:.92; }
-.lock-photo { width:150px; height:175px; margin:28px auto 0; border:1px solid #ffffff99; border-radius:23px; background:#ffffff28; backdrop-filter:blur(5px); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; overflow:hidden; box-shadow:0 10px 30px #20274422; }
-.lock-photo img { width:100%; height:100%; object-fit:cover; display:none; }
-.photo-placeholder { font-size:42px; }
-.photo-label { font-size:11px; letter-spacing:1px; }
-.lock-bottom { position:absolute; bottom:29px; left:28px; right:28px; display:flex; justify-content:space-between; align-items:center; }
-.round-btn { width:43px; height:43px; border-radius:50%; border:1px solid #ffffff66; background:#ffffff25; color:white; font-size:19px; backdrop-filter:blur(12px); cursor:pointer; }
-.unlock { border:0; color:white; background:#ffffff28; border-radius:24px; padding:11px 19px; font-size:12px; backdrop-filter:blur(12px); cursor:pointer; }
-.home { padding-top:66px; }
-.welcome { font-size:12px; letter-spacing:1.5px; margin:0 0 5px 3px; text-shadow:0 1px 5px #2225; }
-.home-title { font-size:22px; font-weight:700; margin:0 0 22px 3px; text-shadow:0 1px 5px #2223; }
-.app-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:21px 10px; }
-.app-icon { display:flex; flex-direction:column; align-items:center; gap:6px; padding:0; border:0; background:none; color:white; cursor:pointer; font:inherit; font-size:10px; text-shadow:0 1px 5px #1117; min-width:0; }
-.iconbox { width:55px; height:55px; border-radius:14px; display:grid; place-items:center; font-size:28px; box-shadow:0 4px 12px #20203324; border:1px solid #ffffff50; }
-.i-photos{background:conic-gradient(#f3d05b,#ee9aab,#b8a6f3,#8ecbe4,#9fdfa9,#f3d05b)}
-.i-msg{background:linear-gradient(#a7ef8a,#3ab956)}
-.i-music{background:linear-gradient(145deg,#e5c2fa,#9c62c7)}
-.i-phone{background:linear-gradient(#8ce3a0,#2cb66a)}
-.i-safari{background:linear-gradient(#b7e4ff,#438bdf)}
-.i-notes{background:linear-gradient(#fff4bb,#f7d96b)}
-.i-camera{background:linear-gradient(#d9dce6,#727b91)}
-.i-heart{background:linear-gradient(145deg,#f6b5d4,#ca7da7)}
-.dock { position:absolute; bottom:24px; left:15px; right:15px; height:87px; border:1px solid #ffffff50; border-radius:27px; background:#ffffff30; backdrop-filter:blur(18px); display:flex; align-items:center; justify-content:space-evenly; }
-.dock .app-icon { gap:0; }
-.dock .iconbox { width:53px; height:53px; }
-.app-window { padding:0; background:#f8f8fa; color:#20212a; }
-.window-top { height:88px; padding:49px 17px 12px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid #e8e8ed; background:#fbfbfd; }
-.back { background:#eef0f7; border:0; border-radius:18px; padding:8px 12px; color:#315ba8; font-size:13px; cursor:pointer; }
-.window-title { font-size:17px; font-weight:700; }
-.window-body { height:calc(100% - 88px); overflow:auto; padding:18px; }
-.muted { color:#777985; font-size:12px; }
-.upload-card { border:1px dashed #b9bfd0; border-radius:18px; padding:20px 14px; text-align:center; background:#f0f2f8; }
-.upload-card button,.action { border:0; border-radius:12px; padding:11px 14px; background:#dce5ff; color:#253b70; font-weight:600; cursor:pointer; }
-.photo-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:5px; margin-top:14px; }
-.photo-grid img { width:100%; aspect-ratio:1; object-fit:cover; border-radius:7px; cursor:pointer; }
-.empty-photo { aspect-ratio:1; border-radius:7px; background:#e9eaf0; display:grid; place-items:center; color:#9da0ad; font-size:22px; }
-.chat-list { display:flex; flex-direction:column; gap:15px; }
-.chat-head { display:flex; align-items:center; gap:10px; padding-bottom:12px; border-bottom:1px solid #eee; }
-.avatar { width:39px; height:39px; border-radius:50%; display:grid; place-items:center; background:#dce4fb; font-size:20px; }
-.chat-date { text-align:center; color:#9698a2; font-size:10px; margin:8px 0; }
-.bubble { max-width:82%; border-radius:18px; padding:11px 13px; font-size:13px; line-height:1.5; }
-.bubble.left { background:#e9eaf0; align-self:flex-start; border-bottom-left-radius:5px; }
-.bubble.right { background:#a9d99b; align-self:flex-end; border-bottom-right-radius:5px; }
-.chat-compose { display:flex; gap:7px; margin-top:12px; }
-.chat-compose input { flex:1; min-width:0; border:1px solid #dddfe7; border-radius:18px; padding:10px 12px; font-size:13px; }
-.chat-compose button { border:0; background:#6ba9e9; color:white; border-radius:50%; width:38px; font-size:18px; }
-.music-card { text-align:center; padding-top:20px; }
-.album { width:190px; height:190px; margin:0 auto 22px; border-radius:25px; background:linear-gradient(135deg,#c7d6ff,#f3cce3); display:grid; place-items:center; font-size:60px; box-shadow:0 8px 25px #c8c4d555; }
-.music-card h3 { margin:8px 0; }
-.music-controls { display:flex; justify-content:center; gap:22px; align-items:center; margin:20px 0; }
-.music-controls button { border:0; background:#e7eaf5; border-radius:50%; width:45px; height:45px; font-size:19px; }
-.music-controls .play { background:#bacbfa; width:54px; height:54px; }
-.track { border-top:1px solid #e8e8ed; padding:13px 4px; text-align:left; font-size:13px; cursor:pointer; }
-.setting-row { display:flex; align-items:center; justify-content:space-between; padding:15px 0; border-bottom:1px solid #e7e7ec; font-size:14px; gap:12px; }
-.setting-row input[type=color] { border:0; width:42px; height:32px; background:none; }
-.setting-row input[type=range] { width:100px; }
-#viewer { position:absolute; inset:0; z-index:20; display:none; background:#101116ee; align-items:center; justify-content:center; padding:25px; }
-#viewer img { max-width:100%; max-height:75%; object-fit:contain; border-radius:12px; }
-#viewer button { position:absolute; top:55px; right:20px; border:0; border-radius:50%; width:40px; height:40px; font-size:23px; }
-.home-indicator { position:absolute; z-index:30; bottom:8px; left:50%; transform:translateX(-50%); width:120px; height:4px; border-radius:5px; background:#fff; opacity:.9; cursor:pointer; }
-#fileInput { display:none; }
-.toast { position:absolute; z-index:40; top:45px; left:50%; transform:translateX(-50%); background:#222d; color:#fff; padding:10px 15px; border-radius:14px; font-size:12px; display:none; width:max-content; max-width:85%; }
-@media(max-height:680px){.phone{min-height:0;height:calc(100dvh - 24px)}.lock{padding-top:28px}.lock-time{font-size:65px}.lock-photo{height:130px;margin-top:17px}.app-grid{gap:13px 8px}.iconbox{width:49px;height:49px}.dock{height:75px;bottom:19px}}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: #171719;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+  color: white;
+}
+
+.phone {
+  position: relative;
+  width: min(100vw, 390px);
+  height: min(100dvh, 844px);
+  min-height: 600px;
+  overflow: hidden;
+  background: #273e66;
+  isolation: isolate;
+}
+
+/* 壁紙 */
+.wallpaper {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 20% 20%, #f5c9db 0%, transparent 40%),
+    radial-gradient(ellipse at 85% 35%, #8da8d9 0%, transparent 40%),
+    radial-gradient(ellipse at 45% 70%, #637db4 0%, transparent 48%),
+    linear-gradient(160deg, #e8c9e2, #a7b9e3 45%, #354d80);
+}
+
+.wallpaper::before {
+  content: "";
+  position: absolute;
+  width: 125%;
+  height: 55%;
+  left: -12%;
+  top: 30%;
+  border-radius: 50%;
+  background: linear-gradient(
+    145deg,
+    rgba(255,255,255,.58),
+    rgba(255,255,255,.03) 60%,
+    rgba(20,36,91,.25)
+  );
+  filter: blur(25px);
+  transform: rotate(-25deg);
+}
+
+.wallpaper::after {
+  content: "";
+  position: absolute;
+  width: 120%;
+  height: 45%;
+  right: -30%;
+  bottom: 8%;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #d8c9eeaa, #667db4aa);
+  filter: blur(35px);
+  transform: rotate(25deg);
+}
+
+/* ステータスバー */
+.status {
+  position: absolute;
+  top: 15px;
+  left: 27px;
+  right: 27px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 15px;
+  font-weight: 600;
+  z-index: 5;
+}
+
+.status-icons {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.battery {
+  width: 23px;
+  height: 11px;
+  border: 1.4px solid white;
+  border-radius: 3px;
+  padding: 1.5px;
+  position: relative;
+}
+
+.battery::before {
+  content: "";
+  display: block;
+  height: 100%;
+  width: 80%;
+  background: white;
+  border-radius: 1px;
+}
+
+.battery::after {
+  content: "";
+  position: absolute;
+  right: -4px;
+  top: 3px;
+  width: 2px;
+  height: 4px;
+  background: white;
+  border-radius: 0 2px 2px 0;
+}
+
+/* Dynamic Island風 */
+.island {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 118px;
+  height: 34px;
+  background: #000;
+  border-radius: 22px;
+  z-index: 4;
+}
+
+/* 時計 */
+.lock-content {
+  position: absolute;
+  top: 15%;
+  left: 0;
+  width: 100%;
+  text-align: center;
+}
+
+.lock-icon {
+  font-size: 16px;
+  height: 25px;
+  opacity: .95;
+}
+
+.date {
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: -.4px;
+  text-shadow: 0 1px 12px #27304b33;
+}
+
+.clock {
+  font-size: clamp(82px, 25vw, 106px);
+  font-weight: 300;
+  letter-spacing: -5px;
+  line-height: 1.08;
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 2px 20px #26345320;
+}
+
+/* 通知 */
+.notifications {
+  position: absolute;
+  top: 43%;
+  left: 16px;
+  right: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.notification {
+  min-height: 75px;
+  padding: 12px 14px;
+  border-radius: 22px;
+  background: rgba(245, 245, 250, .72);
+  border: 1px solid rgba(255,255,255,.36);
+  color: #19191c;
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  box-shadow: 0 4px 20px #17234410;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.app-icon {
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: linear-gradient(145deg, #79d7a2, #20a96b);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 21px;
+}
+
+.notice-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.notice-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.notice-time {
+  font-weight: 400;
+  color: #65656a;
+  white-space: nowrap;
+}
+
+.notice-text {
+  margin-top: 4px;
+  font-size: 14px;
+  line-height: 1.3;
+}
+
+/* 下部ボタン */
+.bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 125px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 10px 37px 0;
+}
+
+.round-button {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(35, 38, 49, .48);
+  border: 1px solid rgba(255,255,255,.18);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
+  color: white;
+  cursor: pointer;
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+}
+
+.round-button:active {
+  background: rgba(255,255,255,.35);
+}
+
+.flash-label {
+  position: absolute;
+  bottom: 88px;
+  left: 37px;
+  font-size: 10px;
+  opacity: 0;
+  transition: opacity .2s;
+}
+
+.flash-label.show {
+  opacity: .9;
+}
+
+.home-bar {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 135px;
+  height: 5px;
+  border-radius: 5px;
+  background: white;
+}
+
+/* ロック画面から開いた後 */
+.home-screen {
+  position: absolute;
+  inset: 0;
+  display: none;
+  padding: 65px 22px 35px;
+  background: linear-gradient(155deg, #c9b5e7, #f2c9df 45%, #9db7e8);
+  z-index: 10;
+}
+
+.home-screen.open {
+  display: block;
+}
+
+.home-date {
+  text-align: center;
+  font-size: 15px;
+  margin-bottom: 25px;
+  text-shadow: 0 1px 8px #3332;
+}
+
+.app-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px 12px;
+}
+
+.app {
+  text-align: center;
+  font-size: 11px;
+  text-shadow: 0 1px 5px #3334;
+}
+
+.app-square {
+  width: 54px;
+  height: 54px;
+  margin: 0 auto 6px;
+  border-radius: 14px;
+  background: rgba(255,255,255,.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 27px;
+  box-shadow: 0 4px 12px #3332;
+}
+
+.dock {
+  position: absolute;
+  bottom: 25px;
+  left: 15px;
+  right: 15px;
+  padding: 12px 8px;
+  border-radius: 27px;
+  background: rgba(255,255,255,.3);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  backdrop-filter: blur(20px);
+}
+
+.dock .app-square {
+  width: 52px;
+  height: 52px;
+  margin: auto;
+}
+
+.back-button {
+  position: absolute;
+  top: 25px;
+  left: 20px;
+  border: 0;
+  background: #ffffff55;
+  color: white;
+  border-radius: 20px;
+  padding: 8px 13px;
+  font-size: 14px;
+}
+
+@media (min-width: 500px) {
+  .phone {
+    border: 7px solid #111;
+    border-radius: 45px;
+    height: min(844px, 94dvh);
+  }
+
+  .island {
+    top: 12px;
+  }
+
+  .status {
+    top: 17px;
+  }
+}
 </style>
 </head>
+
 <body>
-<div id="app">
-  <main class="phone" id="phone">
-    <div class="wallpaper" id="wallpaper"></div>
-    <div class="status"><span id="statusTime">9:41</span><span>●●●  ▰ ▰</span></div>
-    <div class="dynamic-island"></div>
-    <section class="screen active" id="lockScreen">
-      <div class="lock">
-        <div class="lock-date" id="lockDate">10月20日 火曜日</div>
-        <div class="lock-time" id="lockTime">9:41</div>
-        <div class="lock-sub">A LITTLE WORLD FOR YU</div>
-        <div class="lock-photo" id="lockPhoto">
-          <img id="lockImg" alt="設定した壁紙">
-          <div class="photo-placeholder" id="lockPlaceholder">♡</div>
-          <div class="photo-label" id="lockLabel">YOUR PHOTO</div>
+
+<div class="phone">
+  <div class="wallpaper"></div>
+
+  <div class="status">
+    <span id="statusTime">9:41</span>
+    <div class="status-icons">
+      <svg width="18" height="14" viewBox="0 0 18 14">
+        <path d="M1 5 Q9 -2 17 5 L15 7 Q9 1 3 7 Z" fill="white"/>
+        <path d="M4 8 Q9 3 14 8 L12 10 Q9 7 6 10 Z" fill="white"/>
+        <circle cx="9" cy="12" r="1.5" fill="white"/>
+      </svg>
+      <svg width="19" height="14" viewBox="0 0 19 14">
+        <rect x="0" y="9" width="3" height="5" rx="1" fill="white"/>
+        <rect x="4" y="6" width="3" height="8" rx="1" fill="white"/>
+        <rect x="8" y="3" width="3" height="11" rx="1" fill="white"/>
+        <rect x="12" y="0" width="3" height="14" rx="1" fill="white"/>
+      </svg>
+      <div class="battery"></div>
+    </div>
+  </div>
+
+  <div class="island"></div>
+
+  <div class="lock-content">
+    <div class="lock-icon">🔒</div>
+    <div class="date" id="date">10月20日 火曜日</div>
+    <div class="clock" id="clock">9:41</div>
+  </div>
+
+  <div class="notifications">
+    <div class="notification">
+      <div class="app-icon">💬</div>
+      <div class="notice-body">
+        <div class="notice-heading">
+          <span>メッセージ</span>
+          <span class="notice-time">たった今</span>
         </div>
+        <div class="notice-text">今日なにしてる？ 🎀</div>
       </div>
-      <div class="lock-bottom">
-        <button class="round-btn" id="lockCamera" aria-label="カメラ">⌕</button>
-        <button class="unlock" id="unlock">上にスワイプして開く　↑</button>
-        <button class="round-btn" id="lockUpload" aria-label="壁紙を選ぶ">＋</button>
+    </div>
+
+    <div class="notification">
+      <div class="app-icon" style="background:linear-gradient(145deg,#ff9bb7,#f34e79)">♡</div>
+      <div class="notice-body">
+        <div class="notice-heading">
+          <span>YUKIPHONE</span>
+          <span class="notice-time">1分前</span>
+        </div>
+        <div class="notice-text">今日も素敵な一日になりますように ✨</div>
       </div>
-    </section>
-    <section class="screen" id="homeScreen">
-      <div class="welcome">MY LITTLE UNIVERSE</div>
-      <h1 class="home-title">YU'S iPhone ♡</h1>
-      <div class="app-grid">
-        <button class="app-icon" data-open="photos"><span class="iconbox i-photos">🌈</span><span>写真</span></button>
-        <button class="app-icon" data-open="messages"><span class="iconbox i-msg">☏</span><span>メッセージ</span></button>
-        <button class="app-icon" data-open="music"><span class="iconbox i-music">♫</span><span>ミュージック</span></button>
-        <button class="app-icon" data-open="camera"><span class="iconbox i-camera">📷</span><span>カメラ</span></button>
-        <button class="app-icon" data-open="safari"><span class="iconbox i-safari">🧭</span><span>Safari</span></button>
-        <button class="app-icon" data-open="notes"><span class="iconbox i-notes">📝</span><span>メモ</span></button>
-        <button class="app-icon" data-open="settings"><span class="iconbox i-heart">⚙️</span><span>設定</span></button>
-        <button class="app-icon" data-open="messages"><span class="iconbox i-heart">💗</span><span>YU ♡</span></button>
-      </div>
-      <div class="dock">
-        <button class="app-icon" data-open="phone"><span class="iconbox i-phone">☎</span></button>
-        <button class="app-icon" data-open="messages"><span class="iconbox i-msg">☏</span></button>
-        <button class="app-icon" data-open="safari"><span class="iconbox i-safari">🧭</span></button>
-        <button class="app-icon" data-open="music"><span class="iconbox i-music">♫</span></button>
-      </div>
-    </section>
-    <section class="screen app-window" id="photosScreen">
-      <header class="window-top"><button class="back" data-back>‹ ホーム</button><div class="window-title">写真</div><button class="back" id="addPhotos">＋ 追加</button></header>
-      <div class="window-body">
-        <h2 style="margin:0 0 5px;font-size:25px">ライブラリ</h2><p class="muted">お気に入りの写真をここに集めよう ♡</p>
-        <div class="upload-card"><div style="font-size:30px;margin-bottom:8px">🖼️</div><p style="margin:0 0 12px;font-size:13px">写真を追加して、壁紙にも設定できるよ</p><button id="choosePhotos">写真を選ぶ</button></div>
-        <div class="photo-grid" id="photoGrid"></div>
-      </div>
-    </section>
-    <section class="screen app-window" id="messagesScreen">
-      <header class="window-top"><button class="back" data-back>‹ ホーム</button><div class="window-title">メッセージ</div><span style="width:50px"></span></header>
-      <div class="window-body">
-        <div class="chat-head"><div class="avatar">♡</div><div><b>後藤 結</b><div class="muted">メッセージ風デモ</div></div></div>
-        <div class="chat-list" id="chatList"><div class="chat-date">今日 9:41</div><div class="bubble left">こんにちは！ここはメッセージ画面のデモだよ ☺︎</div><div class="bubble right">会話画面かわいい！♡</div><div class="bubble left">好きな写真を追加して、自分だけの画面にしてね ✨</div></div>
-        <form class="chat-compose" id="chatForm"><input id="chatInput" placeholder="メッセージを入力" maxlength="180"><button aria-label="送信">↑</button></form>
-        <p class="muted">※架空の会話デモです。本人からの返信ではありません。</p>
-      </div>
-    </section>
-    <section class="screen app-window" id="musicScreen">
-      <header class="window-top"><button class="back" data-back>‹ ホーム</button><div class="window-title">ミュージック</div><span style="width:50px"></span></header>
-      <div class="window-body music-card">
-        <div class="album">♡</div><div class="muted">MY PLAYLIST</div><h3 id="trackTitle">お気に入りの曲</h3><p class="muted">自分の音楽を選んで再生できるよ</p>
-        <input id="audioInput" type="file" accept="audio/*" style="display:none">
-        <button class="action" id="chooseAudio">♪ 音楽ファイルを選ぶ</button>
-        <audio id="audio" controls style="width:100%;margin-top:22px;display:none"></audio>
-        <div class="track" id="pickTrack">＋ この端末から音楽を追加</div>
-      </div>
-    </section>
-    <section class="screen app-window" id="settingsScreen">
-      <header class="window-top"><button class="back" data-back>‹ ホーム</button><div class="window-title">設定</div><span style="width:50px"></span></header>
-      <div class="window-body"><h2 style="margin-top:0">カスタマイズ</h2><p class="muted">自分だけのiPhoneにしよう。</p>
-        <div class="setting-row"><span>壁紙を変更</span><button class="action" id="settingsWallpaper">写真を選ぶ</button></div>
-        <div class="setting-row"><span>画面の色</span><input type="color" id="tint" value="#c6d4fa"></div>
-        <div class="setting-row"><span>推しの名前</span><input id="nameInput" value="後藤 結" maxlength="24" style="width:130px;padding:8px;border:1px solid #ddd;border-radius:9px"></div>
-        <div class="setting-row"><span>ホーム画面のぼかし</span><input id="blurRange" type="range" min="0" max="10" value="0"></div>
-        <div class="setting-row"><span>ロック画面に写真を表示</span><input id="showLockPhoto" type="checkbox" checked></div>
-        <button class="action" id="saveSettings" style="margin-top:20px;width:100%">設定を反映</button>
-      </div>
-    </section>
-    <section class="screen app-window" id="cameraScreen">
-      <header class="window-top"><button class="back" data-back>‹ ホーム</button><div class="window-title">カメラ</div><span style="width:50px"></span></header>
-      <div class="window-body" style="text-align:center;padding-top:45px"><div style="font-size:65px">📷</div><h2>カメラ風画面</h2><p>このプレビューでは撮影機能は使わず、写真の追加から画像を設定できるよ。</p><button class="action" id="cameraUpload">写真を選ぶ</button></div>
-    </section>
-    <section class="screen app-window" id="notesScreen">
-      <header class="window-top"><button class="back" data-back>‹ ホーム</button><div class="window-title">メモ</div><button class="back" id="saveNote">保存</button></header>
-      <div class="window-body"><textarea id="noteText" placeholder="推しへのメモ、好きなところ、思い出など…" style="width:100%;height:65%;border:0;outline:0;resize:none;font:16px/1.8 var(--site-font-body);background:transparent"></textarea><p class="muted">このプレビュー内でメモを保存できるよ。</p></div>
-    </section>
-    <section class="screen app-window" id="phoneScreen">
-      <header class="window-top"><button class="back" data-back>‹ ホーム</button><div class="window-title">電話</div><span style="width:50px"></span></header>
-      <div class="window-body" style="text-align:center;padding-top:60px"><div style="font-size:65px;color:#46b96a">☎</div><h2>電話アプリ風</h2><p>画面のデザインを再現したデモだよ。</p><p class="muted">実際の電話は発信しません。</p></div>
-    </section>
-    <section class="screen app-window" id="safariScreen">
-      <header class="window-top"><button class="back" data-back>‹ ホーム</button><div class="window-title">Safari</div><span style="width:50px"></span></header>
-      <div class="window-body"><div style="padding:12px;border-radius:13px;background:#eceef4;color:#777;font-size:13px">🔎　好きなサイトを開く</div><h2>お気に入り</h2><button class="track" style="width:100%;border:0;background:transparent" id="openGitHub">GitHub Pages　↗</button><p class="muted">外部サイトを開くと、このプレビューの外に移動するよ。</p></div>
-    </section>
-    <div id="viewer"><button id="closeViewer">×</button><img id="viewerImg" alt="写真プレビュー"><button id="useWallpaper" style="top:auto;right:auto;bottom:42px;left:50%;transform:translateX(-50%);width:auto;border-radius:22px;padding:10px 16px;font-size:13px;white-space:nowrap">壁紙に設定 ♡</button></div>
-    <div class="toast" id="toast"></div>
-    <div class="home-indicator" id="homeIndicator"></div>
-    <input id="fileInput" type="file" accept="image/*" multiple>
-  </main>
+    </div>
+  </div>
+
+  <div class="bottom">
+    <button class="round-button" id="flash" aria-label="懐中電灯">🔦</button>
+    <button class="round-button" id="camera" aria-label="カメラ">📷</button>
+    <div class="flash-label" id="flashLabel">懐中電灯 ON</div>
+  </div>
+
+  <div class="home-bar" id="homeBar"></div>
+
+  <div class="home-screen" id="homeScreen">
+    <button class="back-button" id="back">‹ ロック画面</button>
+    <div class="home-date" id="homeDate"></div>
+
+    <div class="app-grid">
+      <div class="app"><div class="app-square">📅</div>カレンダー</div>
+      <div class="app"><div class="app-square">📷</div>写真</div>
+      <div class="app"><div class="app-square">🕰️</div>時計</div>
+      <div class="app"><div class="app-square">🌤️</div>天気</div>
+      <div class="app"><div class="app-square">📝</div>メモ</div>
+      <div class="app"><div class="app-square">⚙️</div>設定</div>
+      <div class="app"><div class="app-square">🎵</div>音楽</div>
+      <div class="app"><div class="app-square">🗺️</div>マップ</div>
+    </div>
+
+    <div class="dock">
+      <div class="app-square">📞</div>
+      <div class="app-square">💬</div>
+      <div class="app-square">🌐</div>
+      <div class="app-square">🎵</div>
+    </div>
+  </div>
 </div>
+
 <script>
-const $ = s => document.querySelector(s);
-const screens = [...document.querySelectorAll('.screen')];
-let previousScreen = 'homeScreen';
-let currentImage = null;
-let images = [];
-function showToast(msg){const t=$('#toast');t.textContent=msg;t.style.display='block';clearTimeout(showToast.timer);showToast.timer=setTimeout(()=>t.style.display='none',2300)}
-function showScreen(id){screens.forEach(s=>s.classList.toggle('active',s.id===id));$('#viewer').style.display='none';if(id!=='lockScreen'&&id!=='homeScreen')previousScreen=id}
-function goHome(){showScreen('homeScreen')}
-function openPicker(){ $('#fileInput').click() }
-function applyWallpaper(src){$('#wallpaper').style.backgroundImage=`linear-gradient(#10111a22,#10111a22),url("${src}")`;$('#wallpaper').style.backgroundSize='cover';$('#wallpaper').style.backgroundPosition='center';$('#lockImg').src=src;$('#lockImg').style.display='block';$('#lockPlaceholder').style.display='none';$('#lockLabel').style.display='none';currentImage=src;showToast('壁紙を設定したよ ♡')}
-function renderPhotos(){const g=$('#photoGrid');g.innerHTML='';images.forEach((src,i)=>{const im=document.createElement('img');im.src=src;im.alt='追加した写真 '+(i+1);im.onclick=()=>openViewer(src);g.appendChild(im)});if(!images.length){g.innerHTML='<div class="empty-photo">＋</div><div class="empty-photo">♡</div><div class="empty-photo">＋</div>'}}
-function openViewer(src){currentImage=src;$('#viewerImg').src=src;$('#viewer').style.display='flex'}
-document.querySelectorAll('[data-open]').forEach(b=>b.addEventListener('click',()=>showScreen(b.dataset.open+'Screen')));
-document.querySelectorAll('[data-back]').forEach(b=>b.addEventListener('click',goHome));
-$('#unlock').onclick=goHome;
-$('#lockScreen').addEventListener('click',e=>{if(e.target.id==='lockScreen'||e.target.classList.contains('lock')||e.target.classList.contains('lock-date')||e.target.classList.contains('lock-time'))goHome()});
-$('#homeIndicator').onclick=()=>{if($('#lockScreen').classList.contains('active'))goHome();else if($('#homeScreen').classList.contains('active'))showScreen('lockScreen');else goHome()};
-$('#lockUpload').onclick=openPicker;
-$('#lockCamera').onclick=()=>showScreen('cameraScreen');
-$('#addPhotos').onclick=openPicker;$('#choosePhotos').onclick=openPicker;$('#cameraUpload').onclick=openPicker;$('#settingsWallpaper').onclick=openPicker;
-$('#fileInput').addEventListener('change',e=>{const files=[...e.target.files];files.forEach(file=>{if(!file.type.startsWith('image/'))return;const reader=new FileReader();reader.onload=ev=>{images.unshift(ev.target.result);renderPhotos();if(!currentImage)applyWallpaper(ev.target.result);showToast('写真を追加したよ！')};reader.readAsDataURL(file)});e.target.value=''});
-$('#closeViewer').onclick=()=>$('#viewer').style.display='none';
-$('#useWallpaper').onclick=()=>{applyWallpaper(currentImage);$('#viewer').style.display='none'};
-$('#chatForm').addEventListener('submit',e=>{e.preventDefault();const input=$('#chatInput');const v=input.value.trim();if(!v)return;const b=document.createElement('div');b.className='bubble right';b.textContent=v;$('#chatList').appendChild(b);input.value='';$('#chatList').scrollTop=$('#chatList').scrollHeight});
-$('#chooseAudio').onclick=()=>$('#audioInput').click();$('#pickTrack').onclick=()=>$('#audioInput').click();
-$('#audioInput').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;const a=$('#audio');if(a.src)URL.revokeObjectURL(a.src);a.src=URL.createObjectURL(f);a.style.display='block';$('#trackTitle').textContent=f.name.replace(/\.[^.]+$/,'');a.play().catch(()=>{});showToast('音楽を読み込んだよ')});
-$('#tint').addEventListener('input',e=>$('#wallpaper').style.backgroundColor=e.target.value);
-$('#saveSettings').onclick=()=>{const name=$('#nameInput').value.trim()||'後藤 結';$('.home-title').textContent=name+'’s iPhone ♡';$('.chat-head b').textContent=name;$('#wallpaper').style.filter=`blur(${$('#blurRange').value/4}px)`;$('#lockPhoto').style.display=$('#showLockPhoto').checked?'flex':'none';showToast('設定を反映したよ！')};
-$('#saveNote').onclick=()=>{try{localStorage.setItem('yuPhoneNote',$('#noteText').value);showToast('メモを保存したよ ♡')}catch(e){showToast('このプレビューでは保存できない場合があるよ')}};
-try{$('#noteText').value=localStorage.getItem('yuPhoneNote')||''}catch(e){}
-$('#openGitHub').onclick=()=>window.open('https://github.com/','_blank','noopener');
-function updateClock(){const d=new Date();$('#statusTime').textContent=d.toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit',hour12:false});$('#lockTime').textContent=d.toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit',hour12:false});$('#lockDate').textContent=d.toLocaleDateString('ja-JP',{month:'long',day:'numeric',weekday:'long'})}
-updateClock();setInterval(updateClock,30000);renderPhotos();
-</script>
-</body>
-</html>
+const clock = document.getElementById("clock");
+const statusTime = document.getElementById("statusTime");
+const date = document.getElementById("date");
+const homeDate = document.getElementById("homeDate");
+
+function updateTime() {
+  const now = new Date();
+
+  const time = now.toLocaleTimeString("ja-JP", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false
+  });
+
+  clock.textContent = time;
+  statusTime.textContent = time;
+
+  date.textContent = now.toLocaleDateString("ja-JP", {
+    month: "long",
+    day: "numeric",
+    weekday: "long"
+  });
+
+  homeDate.textContent = now.toLocaleDateString("ja-JP", {
+    month: "long",
+    day: "numeric",
+    weekday: "long"
+  });
+}
+
+updateTime();
+setInterval(updateTime, 1000);
+
+let flashlight
